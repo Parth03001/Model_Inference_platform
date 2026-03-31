@@ -7,7 +7,7 @@ services:
     restart: unless-stopped
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_PASSWORD: password
       POSTGRES_DB: model_inference_db
     ports:
       - "5432:5432"
@@ -29,7 +29,7 @@ services:
       postgres:
         condition: service_healthy
     environment:
-      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/model_inference_db
+      DATABASE_URL: postgresql://postgres:password@postgres:5432/model_inference_db
       UPLOAD_DIR: /app/uploads
     ports:
       - "8000:8000"
