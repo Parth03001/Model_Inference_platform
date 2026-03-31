@@ -5,7 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 
 from database import engine, Base
-from routers import cameras, model_upload, detections, stream
+from routers import cameras, model_upload, detections, stream, videos
 
 load_dotenv()
 
@@ -39,6 +39,7 @@ def on_startup():
 
 app.include_router(cameras.router)
 app.include_router(model_upload.router)
+app.include_router(videos.router)
 app.include_router(detections.router)
 app.include_router(stream.router)
 

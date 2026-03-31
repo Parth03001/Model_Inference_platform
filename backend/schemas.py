@@ -3,14 +3,12 @@ from typing import Optional, List
 from pydantic import BaseModel
 
 
-# --- ModelWeight Schemas ---
+# ── ModelWeight ────────────────────────────────────────────────────────────
 class ModelWeightBase(BaseModel):
     name: str
 
-
 class ModelWeightCreate(ModelWeightBase):
     pass
-
 
 class ModelWeightResponse(ModelWeightBase):
     id: int
@@ -23,21 +21,18 @@ class ModelWeightResponse(ModelWeightBase):
         from_attributes = True
 
 
-# --- Camera Schemas ---
+# ── Camera ─────────────────────────────────────────────────────────────────
 class CameraBase(BaseModel):
     name: str
     rtsp_url: str
 
-
 class CameraCreate(CameraBase):
     pass
-
 
 class CameraUpdate(BaseModel):
     name: Optional[str] = None
     rtsp_url: Optional[str] = None
     is_active: Optional[bool] = None
-
 
 class CameraResponse(CameraBase):
     id: int
@@ -49,11 +44,28 @@ class CameraResponse(CameraBase):
         from_attributes = True
 
 
-# --- Detection Schemas ---
+# ── Video ──────────────────────────────────────────────────────────────────
+class VideoResponse(BaseModel):
+    id: int
+    name: str
+    filename: str
+    file_path: str
+    duration: Optional[float] = None
+    file_size: Optional[float] = None
+    uploaded_at: datetime
+    is_processing: bool
+
+    class Config:
+        from_attributes = True
+
+
+# ── Detection ──────────────────────────────────────────────────────────────
 class DetectionResponse(BaseModel):
     id: int
-    camera_id: int
+    camera_id: Optional[int] = None
+    video_id: Optional[int] = None
     model_id: int
+    source_type: str
     timestamp: datetime
     label: str
     confidence: float
@@ -63,11 +75,11 @@ class DetectionResponse(BaseModel):
     bbox_x2: Optional[float] = None
     bbox_y2: Optional[float] = None
     camera_name: Optional[str] = None
+    video_name: Optional[str] = None
     model_name: Optional[str] = None
 
     class Config:
         from_attributes = True
-
 
 class DetectionListResponse(BaseModel):
     data: List[DetectionResponse]
@@ -77,10 +89,18 @@ class DetectionListResponse(BaseModel):
     total_pages: int
 
 
+# ── Stream requests ────────────────────────────────────────────────────────
 class InferenceStartRequest(BaseModel):
     camera_id: int
     model_id: int
 
-
 class InferenceStopRequest(BaseModel):
     camera_id: int
+
+class VideoInferenceStartRequest(BaseModel):
+    video_id: int
+    model_id: int
+    loop: bool = False          # replay video when it ends
+
+class VideoInferenceStopRequest(BaseModel):
+    video_id: int

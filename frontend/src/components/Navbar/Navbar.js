@@ -7,7 +7,8 @@ const navItems = [
   { path: '/dashboard', label: 'Dashboard', icon: '▦' },
   { path: '/models', label: 'Models', icon: '⬡' },
   { path: '/cameras', label: 'Cameras', icon: '◎' },
-  { path: '/stream', label: 'Live Stream', icon: '▶' },
+  { path: '/videos', label: 'Videos', icon: '▶' },
+  { path: '/stream', label: 'Live Stream', icon: '◉' },
   { path: '/detections', label: 'Detections', icon: '◈' },
 ];
 

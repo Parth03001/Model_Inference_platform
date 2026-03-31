@@ -8,6 +8,7 @@ import ModelUpload from './components/ModelUpload/ModelUpload';
 import CameraManager from './components/CameraManager/CameraManager';
 import VideoStream from './components/VideoStream/VideoStream';
 import DetectionHistory from './components/DetectionHistory/DetectionHistory';
+import VideoUpload from './components/VideoUpload/VideoUpload';
 import './App.css';
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
                       <Route path="/dashboard" element={<Dashboard />} />
                       <Route path="/models" element={<ModelUpload />} />
                       <Route path="/cameras" element={<CameraManager />} />
+                      <Route path="/videos" element={<VideoUpload />} />
                       <Route path="/stream" element={<VideoStream />} />
                       <Route path="/detections" element={<DetectionHistory />} />
                     </Routes>
