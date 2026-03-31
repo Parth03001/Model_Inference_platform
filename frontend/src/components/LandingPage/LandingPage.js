@@ -1,6 +1,6 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { motion, useAnimation, useInView } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
 import './LandingPage.css';
 
 const features = [
@@ -51,99 +51,186 @@ export default function LandingPage() {
       <div className="landing__bg-glow landing__bg-glow--1" />
       <div className="landing__bg-glow landing__bg-glow--2" />
 
-      {/* Hero */}
+      {/* ── HERO ── */}
       <section className="landing__hero">
-        <motion.div
-          className="landing__hero-badge"
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5 }}
-        >
-          <span className="badge-dot" />
-          <span>Powered by Ultralytics YOLO</span>
-        </motion.div>
 
-        <motion.h1
-          className="landing__hero-title"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.1 }}
-        >
-          Real-Time
-          <br />
-          <span className="hero-gradient">AI Inference</span>
-          <br />
-          on Any Camera
-        </motion.h1>
-
-        <motion.p
-          className="landing__hero-subtitle"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.25 }}
-        >
-          Upload your YOLO model weights, connect RTSP camera streams,
-          and watch detections happen in real time — stored automatically.
-        </motion.p>
-
-        <motion.div
-          className="landing__hero-actions"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.4 }}
-        >
-          <motion.button
-            className="btn btn--primary"
-            onClick={() => navigate('/dashboard')}
-            whileHover={{ scale: 1.04, boxShadow: '0 0 30px rgba(99,102,241,0.5)' }}
-            whileTap={{ scale: 0.97 }}
+        {/* LEFT — text */}
+        <div className="hero-text">
+          <motion.div
+            className="landing__hero-badge"
+            initial={{ opacity: 0, scale: 0.85 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5 }}
           >
-            Get Started →
-          </motion.button>
-          <motion.button
-            className="btn btn--ghost"
-            onClick={() => navigate('/models')}
-            whileHover={{ scale: 1.04 }}
-            whileTap={{ scale: 0.97 }}
-          >
-            Upload Model
-          </motion.button>
-        </motion.div>
+            <span className="badge-dot" />
+            <span>Powered by Ultralytics YOLO</span>
+          </motion.div>
 
-        {/* Hero visual */}
+          <motion.h1
+            className="landing__hero-title"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.1 }}
+          >
+            Real-Time
+            <br />
+            <span className="hero-gradient">AI Inference</span>
+            <br />
+            on Any Camera
+          </motion.h1>
+
+          <motion.p
+            className="landing__hero-subtitle"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.25 }}
+          >
+            Upload your YOLO model weights, connect RTSP camera streams,
+            and watch detections happen in real time — stored automatically.
+          </motion.p>
+
+          <motion.div
+            className="landing__hero-actions"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.4 }}
+          >
+            <motion.button
+              className="btn btn--primary"
+              onClick={() => navigate('/dashboard')}
+              whileHover={{ scale: 1.05, boxShadow: '0 0 32px rgba(99,102,241,0.55)' }}
+              whileTap={{ scale: 0.97 }}
+            >
+              Get Started →
+            </motion.button>
+            <motion.button
+              className="btn btn--ghost"
+              onClick={() => navigate('/models')}
+              whileHover={{ scale: 1.04 }}
+              whileTap={{ scale: 0.97 }}
+            >
+              Upload Model
+            </motion.button>
+          </motion.div>
+
+          {/* Mini stats row */}
+          <motion.div
+            className="hero-mini-stats"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.6 }}
+          >
+            {[
+              { value: 'RTSP', label: 'Camera Protocol' },
+              { value: 'YOLO', label: 'Model Format' },
+              { value: 'WS', label: 'Live Stream' },
+              { value: 'PG', label: 'Database' },
+            ].map((s) => (
+              <div key={s.value} className="hero-mini-stat">
+                <span className="hero-mini-stat__value">{s.value}</span>
+                <span className="hero-mini-stat__label">{s.label}</span>
+              </div>
+            ))}
+          </motion.div>
+        </div>
+
+        {/* RIGHT — animated window */}
         <motion.div
           className="landing__hero-visual"
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.55 }}
+          initial={{ opacity: 0, x: 60 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.9, delay: 0.3, ease: 'easeOut' }}
         >
           <div className="hero-window">
+            {/* Title bar */}
             <div className="hero-window__bar">
               <span className="window-dot dot--red" />
               <span className="window-dot dot--yellow" />
               <span className="window-dot dot--green" />
               <span className="window-label">Live Feed · Camera 01</span>
+              <span className="window-rec">⏺ REC</span>
             </div>
+
+            {/* Stream body */}
             <div className="hero-window__body">
               <div className="hero-mock-stream">
-                <div className="hero-mock-bbox hero-mock-bbox--1">
-                  <span className="mock-label">Person 0.94</span>
+
+                {/* Background scene — simulated room/persons */}
+                <div className="mock-bg-scene">
+                  <div className="mock-person mock-person--1" />
+                  <div className="mock-person mock-person--2" />
+                  <div className="mock-floor" />
+                  <div className="mock-wall-line" />
                 </div>
-                <div className="hero-mock-bbox hero-mock-bbox--2">
-                  <span className="mock-label">Helmet 0.87</span>
+
+                {/* Detection bounding boxes */}
+                <div className="hero-mock-bbox hero-mock-bbox--person">
+                  <span className="mock-label mock-label--green">Person · 0.94</span>
+                  <span className="mock-corner mock-corner--tl" />
+                  <span className="mock-corner mock-corner--tr" />
+                  <span className="mock-corner mock-corner--bl" />
+                  <span className="mock-corner mock-corner--br" />
                 </div>
+
+                <div className="hero-mock-bbox hero-mock-bbox--helmet">
+                  <span className="mock-label mock-label--purple">Helmet · 0.87</span>
+                  <span className="mock-corner mock-corner--tl" />
+                  <span className="mock-corner mock-corner--tr" />
+                  <span className="mock-corner mock-corner--bl" />
+                  <span className="mock-corner mock-corner--br" />
+                </div>
+
+                {/* Animated scan line */}
                 <div className="hero-scan-line" />
+
+                {/* HUD overlays */}
+                <div className="mock-hud mock-hud--tl">
+                  <span className="mock-hud__dot" />LIVE
+                </div>
+                <div className="mock-hud mock-hud--tr">47 FPS</div>
+                <div className="mock-crosshair" />
               </div>
+
+              {/* Bottom stats bar */}
               <div className="hero-window__stats">
                 <div className="stat-chip stat-chip--green">
                   <span className="stat-dot" />
                   <span>LIVE</span>
                 </div>
                 <span className="stat-fps">47 FPS</span>
-                <span className="stat-count">12 detections</span>
+                <div className="stat-detections">
+                  <span className="stat-det-dot stat-det-dot--green" />
+                  <span>2 detections</span>
+                </div>
+                <span className="stat-model">YOLOv8n</span>
               </div>
             </div>
           </div>
+
+          {/* Floating info cards beside / below the window */}
+          <motion.div
+            className="hero-float-card hero-float-card--1"
+            animate={{ y: [0, -8, 0] }}
+            transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+          >
+            <span className="float-card__icon">◈</span>
+            <div>
+              <div className="float-card__val">1,240</div>
+              <div className="float-card__label">Detections today</div>
+            </div>
+          </motion.div>
+
+          <motion.div
+            className="hero-float-card hero-float-card--2"
+            animate={{ y: [0, 8, 0] }}
+            transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
+          >
+            <span className="float-card__icon" style={{ color: 'var(--accent-success)' }}>◎</span>
+            <div>
+              <div className="float-card__val">4 Cameras</div>
+              <div className="float-card__label">Connected</div>
+            </div>
+          </motion.div>
         </motion.div>
       </section>
 
